@@ -1,0 +1,36 @@
+{
+    "name": "phoole/config",
+    "type": "library",
+    "license": "Apache-2.0",
+    "version": "1.0.0",
+    "description": "Config library for Phoole",
+    "keywords": ["phoole", "library", "php", "config"],
+    "authors": [
+        {
+            "name": "Hong Zhang",
+            "homepage": "https://github.com/phoole"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.0",
+        "phoole/base": "~1.0.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phoole\\Config\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phoole\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check": "phpcs --standard=psr12 src/",
+        "format": "phpcbf --standard=psr12 src/"
+    }
+}
