@@ -29,13 +29,19 @@ trait ArrayAccessTrait
         return $this->get($offset);
     }
 
-    public function offsetSet($offset, $value): void
+    public function offsetSet(
+        /** @scrutinizer ignore-unused */ $offset,
+        /** @scrutinizer ignore-unused */ $value
+    ): void {
+        throw new \RuntimeException("config is immutable");
+    }
+
+    public function offsetUnset(/** @scrutinizer ignore-unused */ $offset): void
     {
         throw new \RuntimeException("config is immutable");
     }
 
-    public function offsetUnset($offset): void
-    {
-        throw new \RuntimeException("config is immutable");
-    }
+    // from ConfigInterface
+    abstract public function has(string $id): bool;
+    abstract public function get(string $id);
 }

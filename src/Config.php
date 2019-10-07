@@ -32,7 +32,7 @@ class Config implements ConfigInterface, ReferenceInterface, \ArrayAccess
     protected $loader;
 
     /**
-     * @var    Tree
+     * @var    Phoole\Base\Tree\Tree
      */
     protected $tree;
 

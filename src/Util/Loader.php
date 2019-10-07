@@ -98,7 +98,8 @@ class Loader
         $files = [];
         $grp = ($group ?: '*') . '.*';
         foreach ($this->searchDirs($environment) as $dir) {
-            $files = array_merge($files, glob($dir . \DIRECTORY_SEPARATOR . $grp));
+            $globs = \glob($dir . \DIRECTORY_SEPARATOR . $grp);
+            $files = array_merge($files, $globs ?: []);
         }
         return $files;
     }
@@ -118,8 +119,8 @@ class Loader
             \PREG_SPLIT_NO_EMPTY
         );
 
-        $d  = $this->root_dir;
-        $dirs[] = $d;
+        $d = $this->root_dir;
+        $dirs = [ $d ];
         foreach ($envs as $p) {
             $d .= \DIRECTORY_SEPARATOR . $p;
             $dirs[] = $d;
