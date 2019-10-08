@@ -11,10 +11,8 @@ declare(strict_types=1);
 
 namespace Phoole\Config;
 
-use Phoole\Config\Util\Loader;
-use Phoole\Config\Util\ArrayAccessTrait;
-use Phoole\Base\Reference\ReferenceInterface;
-use Phoole\Base\Reference\ReferenceTrait;
+use Phoole\Config\Util\{Loader, ArrayAccessTrait};
+use Phoole\Base\Reference\{ReferenceInterface, ReferenceTrait};
 
 /**
  * Config
@@ -27,24 +25,9 @@ class Config implements ConfigInterface, ReferenceInterface, \ArrayAccess
     use ArrayAccessTrait;
 
     /**
-     * @var    Loader
-     */
-    protected $loader;
-
-    /**
      * @var    \Phoole\Base\Tree\Tree
      */
     protected $tree;
-
-    /**
-     * @var    string
-     */
-    private $cached_id;
-
-    /**
-     * @var    mixed
-     */
-    private $cached_value;
 
     /**
      * Constructor
@@ -54,8 +37,12 @@ class Config implements ConfigInterface, ReferenceInterface, \ArrayAccess
      */
     public function __construct(string $rootDir, string $environment = '')
     {
-        $this->loader = (new Loader($rootDir, $environment))->load();
-        $this->tree = $this->loader->getTree();
+        // load all config files
+        $this->tree = (new Loader($rootDir, $environment))->load()->getTree();
+
+        // do dereferencing
+        $conf = &$this->tree->get('');
+        $this->deReference($conf);
     }
 
     /**
@@ -63,12 +50,11 @@ class Config implements ConfigInterface, ReferenceInterface, \ArrayAccess
      */
     public function get(string $id)
     {
-        if ($this->has($id)) {
-            $val = $this->cached_value;
-            $this->deReference($val);
-            return $val;
+        try {
+            return $this->tree->get($id);
+        } catch (\Exception $e) {
+            throw new \RuntimeException($e->getMessage());
         }
-        return null;
     }
 
     /**
@@ -76,19 +62,7 @@ class Config implements ConfigInterface, ReferenceInterface, \ArrayAccess
      */
     public function has(string $id): bool
     {
-        if ($id === $this->cached_id) {
-            return null !== $this->cached_value;
-        }
-
-        $this->cached_id = $id;
-        $this->cached_value = null;
-
-        try {
-            $this->cached_value = $this->tree->get($id);
-        } catch (\Exception $e) {
-            throw new \RuntimeException($e->getMessage());
-        }
-        return null !== $this->cached_value;
+        return $this->tree->has($id);
     }
 
     /**
@@ -111,7 +85,6 @@ class Config implements ConfigInterface, ReferenceInterface, \ArrayAccess
 
     public function __clone()
     {
-        $this->loader = clone $this->loader;
-        $this->tree = $this->loader->getTree();
+        $this->tree = clone $this->tree;
     }
 }

@@ -127,13 +127,4 @@ class Loader
         }
         return $dirs;
     }
-
-    /**
-     * clone tree also
-     */
-    public function __clone()
-    {
-        $this->tree = clone $this->tree;
-        $this->reader = clone $this->reader;
-    }
 }
