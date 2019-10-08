@@ -72,7 +72,7 @@ class Loader
     public function load(string $group = '', string $environment = ''): object
     {
         foreach ($this->globFiles($group, $environment) as $file) {
-            $grp  = explode('.', basename($file), 2)[0];
+            $grp = explode('.', basename($file), 2)[0];
             $this->tree->add($grp, $this->reader->readFile($file));
         }
         return $this;
@@ -105,11 +105,11 @@ class Loader
     }
 
     /**
-      * Returns an array of directoris to search thru
-      *
-      * @param  string $environment
-      * @return array
-      */
+     * Returns an array of directoris to search thru
+     *
+     * @param  string $environment
+     * @return array
+     */
     protected function searchDirs(string $environment): array
     {
         $envs  = preg_split(
