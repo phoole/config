@@ -96,9 +96,9 @@ class Loader
     protected function globFiles(string $group, string $environment): array
     {
         $files = [];
-        $grp = ($group ?: '*').'.*';
+        $grp = ($group ?: '*') . '.*';
         foreach ($this->searchDirs($environment) as $dir) {
-            $globs = \glob($dir.\DIRECTORY_SEPARATOR.$grp);
+            $globs = \glob($dir . \DIRECTORY_SEPARATOR . $grp);
             $files = array_merge($files, $globs ?: []);
         }
         return $files;
@@ -122,7 +122,7 @@ class Loader
         $d = $this->root_dir;
         $dirs = [$d];
         foreach ($envs as $p) {
-            $d .= \DIRECTORY_SEPARATOR.$p;
+            $d .= \DIRECTORY_SEPARATOR . $p;
             $dirs[] = $d;
         }
         return $dirs;

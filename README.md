@@ -66,9 +66,7 @@ Features
 - Use of [references](#ref) in configuration value is fully supported, such as
   `${system.tmpdir}`.
 
-- Hierachy configuration structure with dot notation like `db.auth.host`.
-
-- [Array access](#array) for ease of use. e.g. `$user = $config['db.user'];`.
+- Hierachy configuration structure with [dot notation](#dot) like `db.auth.host`.
 
 - Support `.php`, `.json`, `.yml`(need yaml extension installed) type of config
   files.
@@ -112,9 +110,6 @@ Usage
 
   // object access of $config
   $db_config = $config->get('db');
-
-  // array access of $config
-  $db_config = $config['db'];
   ```
 
 - <a name="group"></a>Central config directory and configuration grouping
@@ -137,8 +132,7 @@ Usage
     Later, `system` related configs can be retrieved as
 
     ```php
-    // array access of $config
-    $dir = $config['system.tmpdir'];
+    $dir = $config->get('system.tmpdir');
     ```
 
     Or being used in other configs as [references](#ref).
@@ -193,17 +187,7 @@ Usage
   $config->setReferencePattern('%{', '}%');
   ```
 
-- <a name="array"></a>ArrayAccess and DOT notation
-
-  `Config` class implements `ArrayAccess` interface. So config values can be
-  accessed just like an array.
-
-  ```php
-  // test
-  if (!isset($config['db.auth.user'])) {
-      $user = $config['db.auth.user'];
-  }
-  ```
+- <a name="dot"></a>DOT notation
 
   Hierachy configuration structure with dot notation like `db.auth.host`.
 

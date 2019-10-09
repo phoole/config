@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Phoole\Config;
 
-use Phoole\Config\Util\{Loader, ArrayAccessTrait};
+use Phoole\Config\Util\Loader;
 use Phoole\Base\Reference\{ReferenceInterface, ReferenceTrait};
 
 /**
@@ -19,10 +19,9 @@ use Phoole\Base\Reference\{ReferenceInterface, ReferenceTrait};
  *
  * @package Phoole\Config
  */
-class Config implements ConfigInterface, ReferenceInterface, \ArrayAccess
+class Config implements ConfigInterface, ReferenceInterface
 {
     use ReferenceTrait;
-    use ArrayAccessTrait;
 
     /**
      * @var    \Phoole\Base\Tree\Tree
