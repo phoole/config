@@ -11,8 +11,10 @@ declare(strict_types=1);
 
 namespace Phoole\Config;
 
+use Phoole\Base\Tree\Tree;
 use Phoole\Config\Util\Loader;
-use Phoole\Base\Reference\{ReferenceInterface, ReferenceTrait};
+use Phoole\Base\Reference\ReferenceInterface;
+use Phoole\Base\Reference\ReferenceTrait;
 
 /**
  * Config
@@ -31,13 +33,25 @@ class Config implements ConfigInterface, ReferenceInterface
     /**
      * Constructor
      *
-     * @param  string $rootDir
+     * ```php
+     * # load from files
+     * $conf = new Config('/my/app/conf', 'product/host1');
+     *
+     * # load from array
+     * $conf = new Config(['db.user'=> 'root']);
+     * ```
+     *
+     * @param  string|array $dirOrConfData
      * @param  string $environment
      */
-    public function __construct(string $rootDir, string $environment = '')
+    public function __construct($dirOrConfData, string $environment = '')
     {
-        // load all config files
-        $this->tree = (new Loader($rootDir, $environment))->load()->getTree();
+        // load files
+        if (is_string($dirOrConfData)) {
+            $this->tree = (new Loader($dirOrConfData, $environment))->load()->getTree();
+        } else {
+            $this->tree = new Tree($dirOrConfData);
+        }
 
         // do dereferencing
         $conf = &$this->tree->get('');

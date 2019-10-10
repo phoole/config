@@ -35,6 +35,21 @@ class ConfigTest extends TestCase
     }
 
     /**
+     * @covers Phoole\Config\Config::__construct()
+     */
+    public function testConfig()
+    {
+        $c = [
+            'db.user' => 'root'
+        ];
+
+        # load conf from array
+        $obj = new Config($c);
+        $this->assertEquals(['db' => ['user' => 'root']], $obj->get(''));
+        $this->assertEquals('root', $obj->get('db.user'));
+    }
+
+    /**
      * @covers Phoole\Config\Config::has()
      */
     public function testHas()
