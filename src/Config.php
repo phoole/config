@@ -13,8 +13,8 @@ namespace Phoole\Config;
 
 use Phoole\Base\Tree\Tree;
 use Phoole\Config\Util\Loader;
-use Phoole\Base\Reference\ReferenceInterface;
 use Phoole\Base\Reference\ReferenceTrait;
+use Phoole\Base\Reference\ReferenceInterface;
 
 /**
  * Config
@@ -46,7 +46,6 @@ class Config implements ConfigInterface, ReferenceInterface
      */
     public function __construct($dirOrConfData, string $environment = '')
     {
-        // load files
         if (is_string($dirOrConfData)) {
             $this->tree = (new Loader($dirOrConfData, $environment))->load()->getTree();
         } else {
@@ -86,6 +85,15 @@ class Config implements ConfigInterface, ReferenceInterface
         $new = clone $this;
         $new->tree->add($id, $value);
         return $new;
+    }
+
+    /**
+     * Get the tree object
+     * @return Tree
+     */
+    public function getTree(): Tree
+    {
+        return $this->tree;
     }
 
     /**
