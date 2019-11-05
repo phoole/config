@@ -87,20 +87,4 @@ class ConfigTest extends TestCase
         $this->assertFalse($obj->has('ENV.TEST'));
         $this->assertFalse($obj->get('ENV.TEST'));
     }
-
-    /**
-     * @covers Phoole\Config\Config::with()
-     */
-    public function testWith()
-    {
-        $obj = $this->obj->with('redis', ['host.ip' => 'localhost']);
-
-        // not same object
-        $this->assertFalse($obj === $this->obj);
-        $this->assertTrue($this->obj->get('redis.host') === NULL);
-
-        // check values
-        $this->assertEquals($obj->get('db.host.port'), 3306);
-        $this->assertEquals($obj->get('redis.host'), ['ip' => 'localhost']);
-    }
 }

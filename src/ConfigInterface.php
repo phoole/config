@@ -38,18 +38,4 @@ interface ConfigInterface
      * @return bool
      */
     public function has(string $id): bool;
-
-    /**
-     * Config object is supposed to be IMMUTABLE once created.
-     *
-     * Set new value will return a new copy
-     * ```php
-     * $newconf = $conf->with('db.user', 'system');
-     * ```
-     *
-     * @param  string $id
-     * @param  mixed  $value
-     * @return ConfigInterface
-     */
-    public function with(string $id, $value): ConfigInterface;
 }

@@ -88,16 +88,6 @@ class Config implements ConfigInterface, ReferenceInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function with(string $id, $value): ConfigInterface
-    {
-        $new = clone $this;
-        $new->tree->add($id, $value);
-        return $new;
-    }
-
-    /**
      * Get the tree object
      *
      * @return Tree
@@ -113,10 +103,5 @@ class Config implements ConfigInterface, ReferenceInterface
     protected function getReference(string $name)
     {
         return $this->get($name);
-    }
-
-    public function __clone()
-    {
-        $this->tree = clone $this->tree;
     }
 }
