@@ -66,7 +66,9 @@ Features
 - Use of [references](#ref) in configuration value is fully supported, such as
   `${system.tmpdir}`.
 
-- Hierachy configuration structure with [dot notation](#dot) like `db.auth.host`.
+- Get environment values using `$config->get('ENV.USER')` or `${ENV.USER}`
+
+- Hierarchy configuration structure with [dot notation](#dot) like `db.auth.host`.
 
 - Support `.php`, `.json`, `.yml`(need yaml extension installed) type of config
   files.
@@ -187,9 +189,25 @@ Usage
   $config->setReferencePattern('%{', '}%');
   ```
 
+- <a name="env"></a>Access environment values
+
+  Environment values can be accessed through special node `'ENV'`. e.g.
+  
+  ```php
+  $tmpdir = $config->get('ENV.APP_TMPDIR');
+  ```
+  
+  or in reference format,
+  
+  ```php
+  return [
+      'tmpdir' => '${ENV.APP_TMPDIR}'
+  ];
+  ```
+  
 - <a name="dot"></a>DOT notation
 
-  Hierachy configuration structure with dot notation like `db.auth.host`.
+  Hierarchy configuration structure with dot notation like `db.auth.host`.
 
   ```php
   // returns the db config array

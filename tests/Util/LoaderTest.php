@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Phoole\Tests\Util;
 
@@ -10,27 +10,29 @@ use PHPUnit\Framework\TestCase;
 class LoaderTest extends TestCase
 {
     private $obj;
+
     private $ref;
+
     private $dir;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->dir = dirname(__DIR__). \DIRECTORY_SEPARATOR . 'config';
+        $this->dir = dirname(__DIR__) . \DIRECTORY_SEPARATOR . 'config';
         $this->obj = new Loader($this->dir);
         $this->ref = new \ReflectionClass(get_class($this->obj));
     }
 
     protected function tearDown(): void
     {
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 
@@ -41,7 +43,7 @@ class LoaderTest extends TestCase
     {
         $this->assertEquals(
             $this->invokeMethod('searchDirs', ["dev"]),
-            [$this->dir, $this->dir . \DIRECTORY_SEPARATOR .'dev']
+            [$this->dir, $this->dir . \DIRECTORY_SEPARATOR . 'dev']
         );
     }
 
@@ -53,8 +55,9 @@ class LoaderTest extends TestCase
         $this->assertEquals(
             $this->invokeMethod('globFiles', ['db', 'dev']),
             [
-                $this->dir . \DIRECTORY_SEPARATOR .'db.php',
-                $this->dir . \DIRECTORY_SEPARATOR .'dev' . \DIRECTORY_SEPARATOR .'db.php']
+                $this->dir . \DIRECTORY_SEPARATOR . 'db.php',
+                $this->dir . \DIRECTORY_SEPARATOR . 'dev' . \DIRECTORY_SEPARATOR . 'db.php'
+            ]
         );
     }
 

@@ -7,7 +7,7 @@
  * @package   Phoole\Config
  * @copyright Copyright (c) 2019 Hong Zhang
  */
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Phoole\Config;
 
@@ -26,7 +26,7 @@ class Config implements ConfigInterface, ReferenceInterface
     use ReferenceTrait;
 
     /**
-     * @var    \Phoole\Base\Tree\Tree
+     * @var Tree
      */
     protected $tree;
 
@@ -42,10 +42,12 @@ class Config implements ConfigInterface, ReferenceInterface
      * ```
      *
      * @param  string|array $dirOrConfData
-     * @param  string $environment
+     * @param  string       $environment
      */
-    public function __construct($dirOrConfData, string $environment = '')
-    {
+    public function __construct(
+        $dirOrConfData,
+        string $environment = ''
+    ) {
         if (is_string($dirOrConfData)) {
             $this->tree = (new Loader($dirOrConfData, $environment))->load()->getTree();
         } else {
@@ -63,7 +65,11 @@ class Config implements ConfigInterface, ReferenceInterface
     public function get(string $id)
     {
         try {
-            return $this->tree->get($id);
+            if (0 === strpos($id, 'ENV.')) {
+                return getenv(substr($id, 4));
+            } else {
+                return $this->tree->get($id);
+            }
         } catch (\Exception $e) {
             throw new \RuntimeException($e->getMessage());
         }
@@ -74,7 +80,11 @@ class Config implements ConfigInterface, ReferenceInterface
      */
     public function has(string $id): bool
     {
-        return $this->tree->has($id);
+        if (0 === strpos($id, 'ENV.')) {
+            return FALSE !== getenv(substr($id, 4));
+        } else {
+            return $this->tree->has($id);
+        }
     }
 
     /**
@@ -89,6 +99,7 @@ class Config implements ConfigInterface, ReferenceInterface
 
     /**
      * Get the tree object
+     *
      * @return Tree
      */
     public function getTree(): Tree
