@@ -19,15 +19,15 @@ namespace Phoole\Config;
 trait ConfigAwareTrait
 {
     /**
-     * @var ConfigInterface
+     * @var Config
      */
     protected $config;
 
     /**
-     * @param  ConfigInterface $config
+     * @param  Config $config
      * @return $this
      */
-    public function setConfig(ConfigInterface $config)
+    public function setConfig(Config $config)
     {
         $this->config = $config;
         return $this;
@@ -37,7 +37,7 @@ trait ConfigAwareTrait
      * @return ConfigInterface
      * @throws \LogicException  if not set yet
      */
-    public function getConfig(): ConfigInterface
+    public function getConfig(): Config
     {
         if (is_null($this->config)) {
             throw new \LogicException("Config not set in " . get_class($this));

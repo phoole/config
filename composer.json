@@ -2,7 +2,7 @@
   "name": "phoole/config",
   "type": "library",
   "license": "Apache-2.0",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Config library for Phoole",
   "keywords": [
     "phoole",
