@@ -13,6 +13,8 @@ namespace Phoole\Config;
 
 use Phoole\Base\Tree\Tree;
 use Phoole\Config\Util\Loader;
+use Phoole\Base\Tree\TreeAwareTrait;
+use Phoole\Base\Tree\TreeAwareInterface;
 use Phoole\Base\Reference\ReferenceTrait;
 use Phoole\Base\Reference\ReferenceInterface;
 
@@ -21,14 +23,10 @@ use Phoole\Base\Reference\ReferenceInterface;
  *
  * @package Phoole\Config
  */
-class Config implements ConfigInterface, ReferenceInterface
+class Config implements ConfigInterface, ReferenceInterface, TreeAwareInterface
 {
     use ReferenceTrait;
-
-    /**
-     * @var Tree
-     */
-    protected $tree;
+    use TreeAwareTrait;
 
     /**
      * Constructor
@@ -85,16 +83,6 @@ class Config implements ConfigInterface, ReferenceInterface
         } else {
             return $this->tree->has($id);
         }
-    }
-
-    /**
-     * Get the tree object
-     *
-     * @return Tree
-     */
-    public function getTree(): Tree
-    {
-        return $this->tree;
     }
 
     /**

@@ -2,7 +2,7 @@
   "name": "phoole/config",
   "type": "library",
   "license": "Apache-2.0",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Config library for Phoole",
   "keywords": [
     "phoole",
@@ -18,7 +18,7 @@
   ],
   "require": {
     "php": ">=7.2.0",
-    "phoole/base": "~1.0.11"
+    "phoole/base": "~1.0.21"
   },
   "require-dev": {
     "phpunit/phpunit": "^8"
