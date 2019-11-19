@@ -6,9 +6,9 @@
 [![Latest Stable Version](https://img.shields.io/github/v/release/phoole/config)](https://packagist.org/packages/phoole/config)
 [![License](https://img.shields.io/github/license/phoole/config)]()
 
-A slim configuration loader lib using PHP, JSON, YAML files, easy to use, yet powerful
-configuration management library for PHP. It requires PHP 7.2+ and is compliant with
-[PSR-1][PSR-1], [PSR-4][PSR-4], [PSR-12][PSR-12].
+A slim configuration loader library for PHP. It loads PHP, JSON, YAML config files,
+easy to use, yet powerful. It requires PHP 7.2+ and is compliant with [PSR-1][PSR-1],
+[PSR-4][PSR-4], [PSR-12][PSR-12].
 
 [PSR-1]: http://www.php-fig.org/psr/psr-1/ "PSR-1: Basic Coding Standard"
 [PSR-4]: http://www.php-fig.org/psr/psr-4/ "PSR-4: Autoloader"

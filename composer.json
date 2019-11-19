@@ -2,8 +2,8 @@
   "name": "phoole/config",
   "type": "library",
   "license": "Apache-2.0",
-  "version": "1.0.13",
-  "description": "Config library for Phoole",
+  "version": "1.1.0",
+  "description": "A slim configuration loader library for PHP.",
   "keywords": [
     "phoole",
     "library",
